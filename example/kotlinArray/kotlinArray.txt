@@ -1,0 +1,23 @@
+@grammar kotlinArray;
+
+@startState = s;
+
+@states {
+    s : EPS | DECL NAME COLON arrayAndLB inside SEMICOLON;
+    arrayAndLB : ARR LB;
+    inside : arrayAndLB inside RB | types RB;
+    types : NAME otherTypes;
+    otherTypes : EPS | COMMA types;
+}
+
+@tokens {
+    DECL: "var";
+    ARR: "Array";
+    LB: "\\<";
+    RB: "\\>";
+    COLON: "\\:";
+    SEMICOLON: "\\;";
+    COMMA: "\\,";
+    NAME: "[a-zA-Z]+";
+    SPACE: "[ \n\t\r]+" -> skip;
+}
